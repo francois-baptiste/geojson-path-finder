@@ -1,26 +1,33 @@
-language: node_js
+ language: node_js
  node_js:
    - "12"
 
-script:
-    - npm install
-    - npm test
+env:
+  global:
+    - NODE_ENV=production
+    - NO_SOURCEMAPS=true
+    - CI=false # prevent build crash if any warnings
 
-script:
-    - export NODE_ENV=production
-    - export NO_SOURCEMAPS=true
-    - export CI=false # prevent build crash if any warnings
-    - npm install
-    - npm install -g webpack webpack-cli
-    - webpack
-    
+before_install:
+  - npm install -g webpack webpack-cli
 
-deploy:
-  provider: pages
-  target_branch: webpack
-  local_dir: dist
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  name: Travis Webpack
-  on:
-    branch: master
+jobs:
+  include:
+    - stage: install
+      script: npm install
+    - stage: test
+      script: npm test
+    - stage: webpack
+      script: webpack
+    - stage: GitHub Release
+      script: echo "Deploying to GitHub releases ..."
+      deploy:
+        provider: pages
+        target_branch: webpack
+        local_dir: dist
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN
+        name: Travis Webpack
+        on:
+          branch: master
+
