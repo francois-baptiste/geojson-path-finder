@@ -18,9 +18,5 @@ jobs:
           export CI=false # prevent build crash if any warnings
           webpack
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.0.0
-        with:
-          branch: webpack # The branch the action should deploy to.
-          folder: dist # The folder the action should deploy.
+
 
