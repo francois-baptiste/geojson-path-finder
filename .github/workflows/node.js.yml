@@ -41,3 +41,24 @@ jobs:
     - run: npm install -g webpack webpack-cli
     - run: webpack
 
+
+    - name: Deploy 🚀
+      if: github.event_name == 'push'
+      uses: JamesIves/github-pages-deploy-action@4.0.0
+      with:
+        branch: webpack # The branch the action should deploy to.
+        folder: dist # The folder the action should deploy.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
