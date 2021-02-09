@@ -1,5 +1,5 @@
-var PathFinder = require('../'),
-    geojson = require('./network.json'),
+var { PathFinder, weightFunctions } = require('../'),
+    geojson = require('./test_network.json'),
     test = require('tap').test,
     point = require('turf-point'),
     distance = require('@turf/distance').default;

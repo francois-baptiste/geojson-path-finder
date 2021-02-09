@@ -21,6 +21,7 @@ function findNextEnd(prev, v, vertices, ends, vertexCoords, edgeData, trackIncom
 
         if (!edges) { break; }
 
+        // first neighbour
         var next = Object.keys(edges).filter(function notPrevious(k) { return k !== prev; })[0];
         weight += edges[next];
 
@@ -80,6 +81,7 @@ function compactNode(k, vertices, ends, vertexCoords, edgeData, trackIncoming, o
 function compactGraph(vertices, vertexCoords, edgeData, options) {
     options = options || {};
     var progress = options.progress;
+    // find end nodes
     var ends = Object.keys(vertices).reduce(function findEnds(es, k, i, vs) {
         var vertex = vertices[k];
         var edges = Object.keys(vertex);

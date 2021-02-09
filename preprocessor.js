@@ -1,10 +1,10 @@
 'use strict';
 
-var topology = require('./topology'),
-    compactor = require('./compactor'),
-    distance = require('@turf/distance').default,
-    roundCoord = require('./round-coord'),
-    point = require('turf-point');
+const topology = require('./topology'),
+      compactor = require('./compactor'),
+      distance = require('@turf/distance').default,
+      roundCoord = require('./round-coord'),
+      point = require('turf-point');
 
 module.exports = function preprocess(graph, options) {
     options = options || {};

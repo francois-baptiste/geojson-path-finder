@@ -1,4 +1,4 @@
-var Queue = require('tinyqueue');
+let Queue = require('tinyqueue');
 
 if (typeof Queue !== 'function' && Queue.default && typeof Queue.default === 'function') {
     Queue = Queue.default;

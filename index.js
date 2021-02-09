@@ -1,15 +1,22 @@
 'use strict';
 
-var findPath = require('./dijkstra'),
+const findPath = require('./dijkstra'),
+    findIsochronePoints = require('./isochrone'),
     preprocess = require('./preprocessor'),
     compactor = require('./compactor'),
+    WeightFunctions = require('./weight-functions'),
     roundCoord = require('./round-coord'),
     distance = require('@turf/distance').default,
-    point = require('turf-point');
+    point = require('turf-point'),
+    helpers = require('@turf/helpers'),
+    concave = require('@turf/concave').default;
 
-module.exports = PathFinder;
+module.exports = {
+    PathFinder,
+    WeightFunctions,
+};
 
-function PathFinder(graph, options) {    
+function PathFinder(graph, options) {
     options = options || {};
 
     if (!graph.compactedVertices) {
@@ -29,6 +36,39 @@ function PathFinder(graph, options) {
 }
 
 PathFinder.prototype = {
+    findPointsAround: function(a, b) {
+        const start = this._keyFn(roundCoord(a.geometry.coordinates, this._precision));
+
+        // We can't find a path if start isn't in the
+        // set of non-compacted vertices
+        if (!this._graph.vertices[start]) {
+            return null;
+        }
+
+        const costs = findIsochronePoints(this._graph.vertices, start, b);
+
+        return Object.keys(costs).map((n) => n.split(',').map((v) => parseFloat(v)));
+    },
+
+    getIsoDistanceConvexHull: function(a, b) {
+        const nodes = this.findPointsAround(a, b);
+
+        const points = helpers.featureCollection(nodes.map((v) => point(v)));
+        // const hull = convex(points);
+
+        return null;
+    },
+
+    getIsoDistanceConcaveHull: function(a, b) {
+        const nodes = this.findPointsAround(a, b);
+
+        const points = helpers.featureCollection(nodes.map((v) => point(v)));
+        const options = {units: 'kilometers', maxEdge: 10};
+        const hull = concave(points, options);
+
+        return hull;
+    },
+
     findPath: function(a, b) {
         var start = this._keyFn(roundCoord(a.geometry.coordinates, this._precision)),
             finish = this._keyFn(roundCoord(b.geometry.coordinates, this._precision));
