@@ -4,7 +4,6 @@
 
 env:
   global:
-    - NODE_ENV=production
     - NO_SOURCEMAPS=true
     - CI=false # prevent build crash if any warnings
 
