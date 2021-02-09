@@ -1,11 +1,27 @@
  language: node_js
  node_js:
    - "12"
+  
+stages:
+  - build
+  - test
+  - deploy
 
-before_script:
-  - npm install webpack webpack-cli -g
+build:
+  stage: build
+  script:
+    - export NODE_ENV=production
+    - export NO_SOURCEMAPS=true
+    - export CI=false # prevent build crash if any warnings
+    - npm install
+    - npm install -g webpack webpack-cli
+    - webpack
 
-script: webpack
+unit_test:
+  stage: test
+  script:
+    - npm install
+    - npm test
 
 deploy:
   provider: pages
