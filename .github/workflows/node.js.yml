@@ -7,16 +7,21 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
 
-      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
-        run: |
-          npm install
-          npm install -g webpack webpack-cli
-          npm run build
-          npm test
-          export NODE_ENV=production
-          export NO_SOURCEMAPS=true
-          export CI=false # prevent build crash if any warnings
-          webpack
+      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.      with:
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: npm install
+      - run: npm install -g webpack webpack-cli
+      - run: npm test
+      - run: export NODE_ENV=production
+      - run: export NO_SOURCEMAPS=true
+      - run: export CI=false # prevent build crash if any warnings
+      - run: webpack
 
-
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.0.0
+        with:
+          branch: webpack # The branch the action should deploy to.
+          folder: dist # The folder the action should deploy.
 
