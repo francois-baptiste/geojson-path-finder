@@ -11,16 +11,16 @@ jobs:
   github-pages:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v2
       - name: Install
-        run: |
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: |
           npm install
           npm install -g webpack webpack-cli
-      - name: Test
-        run: |
           npm test
-      - name: Webpack
-        run: | 
           export NODE_ENV=production
           export NO_SOURCEMAPS=true
           export CI=false # prevent build crash if any warnings
