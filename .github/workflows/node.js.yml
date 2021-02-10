@@ -26,7 +26,7 @@ jobs:
           export CI=false # prevent build crash if any warnings
           webpack
       - name: Publish the static site to GitHub Pages.
-        uses: JamesIves/github-pages-deploy-action@4.0.0
+        uses: jamesives/github-pages-deploy-action@4.0.0
         with:
-          branch: webpack # The branch the action should deploy to.
-          folder: dist # The folder the action should deploy.
+          BRANCH: webpack
+          FOLDER: dist
