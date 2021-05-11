@@ -13,13 +13,11 @@ require('leaflet-routing-machine');
 
 var map = L.map('map');
 
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={token}', {
-        attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
-        tileSize: 512,
+L.tileLayer('https://tiles.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href=\"https://carto.com/about-carto/\" target=\"_blank\" rel=\"noopener\">CARTO</a>, &copy; <a href=\"http://www.openstreetmap.org/about/\" target=\"_blank\">OpenStreetMap</a> contributors',
+        tileSize: 256,
         maxZoom: 18,
-        zoomOffset: -1,
-        id: 'mapbox/outdoors-v11',
-        token: config.apiToken
+        zoomOffset: -1
     })
     .addTo(map);
 
