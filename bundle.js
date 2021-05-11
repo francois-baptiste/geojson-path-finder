@@ -35,7 +35,7 @@ L.tileLayer('https://tiles.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}
         attribution: '&copy; <a href=\"https://carto.com/about-carto/\" target=\"_blank\" rel=\"noopener\">CARTO</a>, &copy; <a href=\"http://www.openstreetmap.org/about/\" target=\"_blank\">OpenStreetMap</a> contributors',
         tileSize: 256,
         maxZoom: 18,
-        zoomOffset: -1
+        zoomOffset: 0
     })
     .addTo(map);
 
@@ -82,8 +82,8 @@ function initialize(network) {
         }).addTo(map);
 
     control.setWaypoints([
-        [57.740, 11.99],
-        [57.68, 11.90],
+        [40.7730603, -73.9612488],
+        [40.7930603, -73.9812488],
     ]);
 
     var totalDistance = network.features.reduce(function(total, feature) {
